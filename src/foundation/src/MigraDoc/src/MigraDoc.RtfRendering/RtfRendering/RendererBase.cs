@@ -65,6 +65,15 @@ namespace MigraDoc.RtfRendering
             _useEffectiveValue = false;
         }
 
+        public static void SetToWordCompatibilityMode()
+        {
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+            if (_enumTranslationTable == null)
+                CreateEnumTranslationTable();
+
+            _enumTranslationTable![WrapStyle.Through] = 5;
+        }
+
         /// <summary>
         /// Helps translating MigraDoc DOM enumerations to an RTF control word.
         /// </summary>
@@ -182,7 +191,7 @@ namespace MigraDoc.RtfRendering
 
             //WrapStyle
             _enumTranslationTable.Add(WrapStyle.None, 3);
-            //Caution: Word imterpretates "Through" (in rtf value "5") slightly different!
+            //Caution: Word interprets "Through" (in rtf value "5") slightly different!
             _enumTranslationTable.Add(WrapStyle.Through, 3);
             _enumTranslationTable.Add(WrapStyle.TopBottom, 1);
 
